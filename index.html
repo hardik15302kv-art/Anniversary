@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,193 +8,196 @@
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#ff9eb5,#ffc6d9);
-    overflow:hidden;
-    font-family:'Georgia',serif;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f8a5c2;
+font-family:Georgia,serif;
 }
 
 /* Floating Hearts */
 .hearts{
-    position:fixed;
-    width:100%;
-    height:100%;
-    pointer-events:none;
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
 }
 
 .hearts span{
-    position:absolute;
-    color:#ff1744;
-    animation:float linear infinite;
+position:absolute;
+color:#ff1744;
+font-size:25px;
+animation:float linear infinite;
 }
 
 @keyframes float{
-    from{
-        transform:translateY(100vh);
-        opacity:0;
-    }
-    20%{
-        opacity:1;
-    }
-    to{
-        transform:translateY(-120px);
-        opacity:0;
-    }
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+20%{
+opacity:1;
+}
+100%{
+transform:translateY(-120px);
+opacity:0;
+}
 }
 
 /* Envelope */
-.wrapper{
-    position:relative;
-    cursor:pointer;
-}
-
 .envelope{
-    position:relative;
-    width:340px;
-    height:230px;
-    background:#f3d47b;
-    border-radius:0 0 12px 12px;
-    box-shadow:0 10px 25px rgba(0,0,0,.2);
+position:relative;
+width:320px;
+height:220px;
+background:#f1d27a;
+cursor:pointer;
+border-radius:0 0 12px 12px;
+box-shadow:0 15px 30px rgba(0,0,0,.2);
 }
 
-.envelope::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    border-left:170px solid transparent;
-    border-right:170px solid transparent;
-    border-top:115px solid #e6c667;
-    transform-origin:top;
-    transition:.8s;
-    z-index:5;
-}
-
-.wrapper.open .envelope::before{
-    transform:rotateX(180deg);
-}
-
-/* Letter */
-.letter{
-    position:absolute;
-    left:20px;
-    bottom:15px;
-    width:300px;
-    height:470px;
-    background:white;
-    border-radius:18px;
-    padding:20px;
-    overflow-y:auto;
-    line-height:1.7;
-    font-size:14px;
-    color:#444;
-    box-shadow:0 8px 18px rgba(0,0,0,.15);
-    transition:.8s;
-    z-index:2;
-}
-
-.wrapper.open .letter{
-    transform:translateY(-340px);
-}
-
-.letter h2{
-    text-align:center;
-    color:#ff4d6d;
-    margin-bottom:15px;
-}
-
-.letter::-webkit-scrollbar{
-    width:6px;
-}
-
-.letter::-webkit-scrollbar-thumb{
-    background:#ff9eb5;
-    border-radius:10px;
+.envelope:before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+border-left:160px solid transparent;
+border-right:160px solid transparent;
+border-top:110px solid #e0bf61;
 }
 
 .tap{
-    position:absolute;
-    width:100%;
-    text-align:center;
-    bottom:-45px;
-    color:white;
-    font-weight:bold;
-    font-size:15px;
+position:absolute;
+width:100%;
+text-align:center;
+bottom:-40px;
+color:white;
+font-weight:bold;
+}
+
+/* Letter Popup */
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.overlay.show{
+display:flex;
+}
+
+.letter{
+background:white;
+width:min(90vw,700px);
+height:85vh;
+padding:25px;
+border-radius:20px;
+overflow-y:auto;
+box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+
+.letter h1{
+text-align:center;
+color:#ff4d6d;
+margin-bottom:20px;
+}
+
+.close{
+float:right;
+font-size:28px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.letter p{
+line-height:1.8;
+font-size:16px;
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="hearts"></div>
 
-<div class="wrapper" onclick="toggleLetter()">
+<div class="envelope" onclick="openLetter()">
+<div class="tap">❤️ Click To Open ❤️</div>
+</div>
 
-    <div class="letter">
+<div class="overlay" id="overlay">
 
-        <h2>💌 For Pihu ❤️</h2>
+<div class="letter">
 
-        <p>
-        Pihu ❤️,<br><br>
+<div class="close" onclick="closeLetter()">✕</div>
 
-        Meri smile khan, meri takli ganji chudail🙃,<br><br>
+<h1>💌 For Pihu ❤️</h1>
 
-        Pta nhi kaise itna zyada pyaar ho gya hai mujhe aapse. Aap meri life mein sirf meri girlfriend nhi ho baby, aap mera sukoon ho, meri aadat ho, meri maa jaisi care karne wali meri godhan bauni ho.❤️ Aapse pyr krna meri life me sbse easy aur best cheez thi jo aaj tk ki hai, mere liye kuch matter nhi krta sirf aap.<br><br>
+<p>
 
-        Sch btau toh jitna pyaar aur care aap mujhe deti ho, meri mummy ke bd agr kisi ki same place hai mere dil me, toh woh aapki hai. Mere liye toh aap meri devi ji ho, meri patni ho. 🥹💞<br><br>
+Pihu ❤️,<br><br>
 
-        Aapke woh bde bde laal laal hoth yaar...😭 Unhe kiss krne ka mn kbhi khtm hi nhi hota. Aur aapki brown eyes... jab bhi unme dekhta hu, ekdum safe feel hota hai, bilkul us chhote bche ki trh jo apni favourite jgh pe ho.<br><br>
+Meri smile khan, meri takli ganji chudail🙃,<br><br>
 
-        Aapke cute se thul-thule chubby cheeks ko dbane ka kitna mn krta hai, but aap krne hi nhi deti.😭🤣 Aur aapki cute si nose, chotu si nakh💋, chote chote hth jinhe pkd ke rahna mujhe duniya ki sbse best feeling lgti hai.<br><br>
+Pta nhi kaise itna zyada pyaar ho gya hai mujhe aapse. Aap meri life mein sirf meri girlfriend nhi ho baby, aap mera sukoon ho, meri aadat ho, meri maa jaisi care karne wali meri godhan bauni ho.❤️ Aapse pyr krna meri life me sbse easy aur best cheez thi jo aaj tk ki hai, mere liye kuch matter nhi krta sirf aap.<br><br>
 
-        Kbhi nhi chordna ye haath. Puri zindagi pkd ke rkhne hain. ❤️<br><br>
+Sch btau toh jitna pyaar aur care aap mujhe deti ho, meri mummy ke bd agr kisi ki same place hai mere dil me, toh woh aapki hai. Mere liye toh aap meri devi ji ho, meri patni ho. 🥹💞<br><br>
 
-        Aur jb aap gussa hoti ho na yaar, itni pyari lgti ho ki kya btau.😭💋 Jb aap mujhe marti ho toh drd nhi hota, sch me maza aata hai aapse pitne mein.🙃 Aur phir uske baad jo pyaar karti ho na, uske liye toh jitna bhi pit lu km hai, janeman.❤️<br><br>
+Aapke woh bde bde laal laal hoth yaar...😭 Unhe kiss krne ka mn kbhi khtm hi nhi hota. Aur aapki brown eyes... jab bhi unme dekhta hu, ekdum safe feel hota hai, bilkul us chhote bche ki trh jo apni favourite jgh pe ho.<br><br>
 
-        Aur sorry agr kbhi uncomfortable feel kraya ho maine. Main bs aapke sth duniya me sbse zyada comfortable hu, isliye itna clingy rhta ho.😭<br><br>
+Aapke cute se thul-thule chubby cheeks ko dbane ka kitna mn krta hai, but aap krne hi nhi deti.😭🤣 Aur aapki cute si nose, chotu si nakh💋, chote chote hth jinhe pkd ke rahna mujhe duniya ki sbse best feeling lgti hai.<br><br>
 
-        Agr kbhi meri kisi baat se aapko bura laga ho ya uncomfortable feel hua ho, toh dil se sorry baby mai sirf aapkoo pyr krta hu. ❤️<br><br>
+Kbhi nhi chordna ye haath. Puri zindagi pkd ke rkhne hain. ❤️<br><br>
 
-        Bs itna yd rkhna...<br><br>
+Aur jb aap gussa hoti ho na yaar, itni pyari lgti ho ki kya btau.😭💋 Jb aap mujhe marti ho toh drd nhi hota, sch me maza aata hai aapse pitne mein.🙃 Aur phir uske baad jo pyaar karti ho na, uske liye toh jitna bhi pit lu km hai, janeman.❤️<br><br>
 
-        I love you the most, meri meri Pihu. 😭💞💝💗💖💘💌💐💋<br><br>
+Aur sorry agr kbhi uncomfortable feel kraya ho maine. Main bs aapke sth duniya me sbse zyada comfortable hu, isliye itna clingy rhta ho.😭<br><br>
 
-        Forever Yours,<br>
-        ❤️ Hardik
-        </p>
+Agr kbhi meri kisi baat se aapko bura laga ho ya uncomfortable feel hua ho, toh dil se sorry baby mai sirf aapkoo pyr krta hu. ❤️<br><br>
 
-    </div>
+Bs itna yd rkhna...<br><br>
 
-    <div class="envelope"></div>
+I love you the most, meri meri Pihu. 😭💞💝💗💖💘💌💐💋<br><br>
 
-    <div class="tap">❤️ Click the Envelope ❤️</div>
+Forever Yours,<br>
+❤️ Hardik
+
+</p>
+
+</div>
 
 </div>
 
 <script>
-function toggleLetter(){
-    document.querySelector('.wrapper').classList.toggle('open');
+function openLetter(){
+document.getElementById('overlay').classList.add('show');
 }
 
-const hearts = document.querySelector('.hearts');
+function closeLetter(){
+document.getElementById('overlay').classList.remove('show');
+}
 
-for(let i=0;i<40;i++){
-    let heart = document.createElement('span');
-    heart.innerHTML='❤';
-    heart.style.left=Math.random()*100+'vw';
-    heart.style.fontSize=(15+Math.random()*25)+'px';
-    heart.style.animationDuration=(5+Math.random()*5)+'s';
-    heart.style.animationDelay=Math.random()*5+'s';
-    hearts.appendChild(heart);
+const hearts=document.querySelector('.hearts');
+
+for(let i=0;i<35;i++){
+let heart=document.createElement('span');
+heart.innerHTML='❤';
+heart.style.left=Math.random()*100+'vw';
+heart.style.animationDuration=(5+Math.random()*5)+'s';
+heart.style.animationDelay=Math.random()*5+'s';
+heart.style.fontSize=(15+Math.random()*25)+'px';
+hearts.appendChild(heart);
 }
 </script>
 
